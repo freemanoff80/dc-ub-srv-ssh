@@ -1,0 +1,36 @@
+FROM ubuntu:latest
+
+#ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Moscow 
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+### Update OS
+RUN apt-get -y update && apt-get -y upgrade
+
+### Install Packages
+RUN apt-get -y install \
+bind9-dnsutils \
+vim \
+less \
+net-tools \
+netcat \
+sudo \
+openssh-server
+
+
+### Settings For User "root"
+#RUN echo 'root:P@ss4321' |chpasswd
+
+### Settings For User "adminus"
+RUN useradd -s /bin/bash -m adminus
+RUN echo 'adminus:P@ss4321' |chpasswd
+RUN echo "adminus ALL = (root) NOPASSWD: ALL" >> /etc/sudoers
+
+### Setting For Service SSH
+RUN echo "PasswordAuthentication yes\nPort 2222" >> /etc/ssh/sshd_config
+#RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+RUN service ssh start
+
+EXPOSE 2222
+
+ENTRYPOINT /usr/sbin/sshd -D

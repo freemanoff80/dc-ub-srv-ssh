@@ -1,0 +1,26 @@
+
+version: '3.8'
+
+services:
+
+    ubuntu-server:
+        container_name: dc-ubuntu-server
+        restart: unless-stopped
+        hostname: dc-ubuntu-server
+        build:
+            context: ./build
+            dockerfile: Dockerfile.ubuntu-server
+        networks:
+            - dc-ubuntu-server
+        ports:
+            - 2222:2222
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+
+networks:
+    dc-ubuntu-server:
+        name: dc-ubuntu-server
+#        ipam:
+#            driver: default
+#            config:
+#                - subnet: 172.16.1.0/24
