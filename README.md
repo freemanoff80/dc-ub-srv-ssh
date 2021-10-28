@@ -1,3 +1,3 @@
-# dc-ubuntu-server
+# dc-ubuntu-server-ssh
 
-Docker-Compose Build Ubuntu Server with SSH service
+Docker-Compose Ubuntu Server with SSH service
