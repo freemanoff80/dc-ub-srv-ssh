@@ -12,9 +12,9 @@ services:
             dockerfile: Dockerfile.ubuntu-server
             args:
                 IMAGE_VERSION: latest
-                ### If you need root access, set a password
-                ROOT_USER_PASSWORD: P@ss4321
-                ### If you need to add another user, set the parameters
+                ### If need root access, set a password
+                ROOT_USER_PASSWORD: changeme
+                ### If need to add another user, set the parameters
                 #ADD_USER_NAME: adminus
                 #ADD_USER_PASSWORD: changeme
                 #ADD_USER_SUDO: "yes"
@@ -22,7 +22,7 @@ services:
         networks:
             - dc-ubuntu-server
         ports:
-            - 33022:2222
+            - 2222:2222
         volumes:
             - /etc/localtime:/etc/localtime:ro
 
@@ -31,5 +31,6 @@ networks:
         name: dc-ubuntu-server
         ipam:
             driver: default
-            config:
-                - subnet: 172.16.9.0/24
+            ### If need set special IP Net Address
+            #config:
+            #    - subnet: 172.16.1.0/24
