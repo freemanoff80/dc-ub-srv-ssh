@@ -9,7 +9,7 @@ services:
         hostname: dc-ub-srv
         build:
             context: ./build
-            dockerfile: Dockerfile.dc-ub-srv
+            dockerfile: Dockerfile.ubuntu-server
             args:
                 IMAGE_VERSION: latest
                 ### If need root access, set a password
