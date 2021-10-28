@@ -4,12 +4,12 @@ version: '3'
 services:
 
     ubuntu-server:
-        container_name: dc-ubuntu-server
+        container_name: dc-ub-srv
         restart: unless-stopped
-        hostname: dc-ubuntu-server
+        hostname: dc-ub-srv
         build:
             context: ./build
-            dockerfile: Dockerfile.ubuntu-server
+            dockerfile: Dockerfile.dc-ub-srv
             args:
                 IMAGE_VERSION: latest
                 ### If need root access, set a password
@@ -20,15 +20,15 @@ services:
                 #ADD_USER_SUDO: "yes"
 
         networks:
-            - dc-ubuntu-server
+            - dc-ub-srv
         ports:
             - 2222:2222
         volumes:
             - /etc/localtime:/etc/localtime:ro
 
 networks:
-    dc-ubuntu-server:
-        name: dc-ubuntu-server
+    dc-ub-srv:
+        name: dc-ub-srv
         ipam:
             driver: default
             ### If need set special IP Net Address
