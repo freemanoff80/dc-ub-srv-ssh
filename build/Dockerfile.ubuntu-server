@@ -16,6 +16,7 @@ ARG ADD_USER_SUDO
 ### Update OS
 RUN apt-get -y update && apt-get -y upgrade
 
+
 ### Install Packages
 RUN apt-get -y install \
 bind9-dnsutils \
@@ -26,7 +27,9 @@ iputils-ping \
 iproute2 \
 netcat \
 sudo \
-openssh-server
+openssh-server \
+supervisor
+
 
 ### Settings For Root User 
 RUN if [ -z "${ROOT_USER_PASSWORD}" ]; then \
@@ -49,12 +52,17 @@ RUN if [ -z "${ADD_USER_NAME}" ]; then \
     fi
 
 
+### Copy Settins Files For Services
+COPY copyfiles/supervisord.conf /etc/supervisor/supervisord.conf
+
+
 ### Setting For Service SSH
 RUN echo "PasswordAuthentication yes\nPort 2222" >> /etc/ssh/sshd_config
-RUN service ssh start
+
 
 ### Expose Port For SSH Service
 EXPOSE 2222
 
-# Running SSH Service Demon
-ENTRYPOINT /usr/sbin/sshd -D
+
+# Running Services
+CMD ["/usr/bin/supervisord"]

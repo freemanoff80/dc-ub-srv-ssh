@@ -22,7 +22,7 @@ services:
         networks:
             - dc-ub-srv
         ports:
-            - 2222:2222
+            - 41022:2222
         volumes:
             - /etc/localtime:/etc/localtime:ro
 
