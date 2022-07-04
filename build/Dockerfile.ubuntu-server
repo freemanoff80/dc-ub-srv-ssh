@@ -53,7 +53,7 @@ RUN if [ -z "${ADD_USER_NAME}" ]; then \
 
 
 ### Copy Settins Files For Services
-COPY copyfiles/supervisord.conf /etc/supervisor/supervisord.conf
+COPY copyfiles/supervisord.conf /etc/supervisor/
 
 
 ### Setting For Service SSH
